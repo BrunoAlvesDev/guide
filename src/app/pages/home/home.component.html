@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="card">
+    <app-loading *ngIf="loading"></app-loading>
+
+    <ng-container *ngIf="!error && !loading">
+      <h3>Histórico do ativo TAEE11 nos últimos 30 pregões</h3>
+      <div class="table-container">
+        <table>
+          <tr>
+            <th>Dia</th>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Variação em relação ao dia anterior</th>
+            <th>Variação em relação a primeira data</th>
+          </tr>
+          <tr *ngFor="let dayData of chartData.days; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ dayData }}</td>
+            <td>{{ chartData.values[i] | currency : "BRL" }}</td>
+            <td>{{ chartData.dayVariation[i] }}%</td>
+            <td>{{ chartData.totalVariation[i] }}%</td>
+          </tr>
+        </table>
+      </div>
+      <h3>Histórico de variação do ativo TAEE11</h3>
+    </ng-container>
+
+    <div id="chart" *ngIf="!error"></div>
+
+    <div class="error-message" *ngIf="error">
+      <p>Ops, houve um erro ao tentar carregar as informações</p>
+    </div>
+  </div>
+</div>
